@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hi</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.2.2/pixi.min.js"></script>
+</head>
+<body>
+    {% for room in rooms %}
+    <a href="/watch/{{ room.id }}">{{ room.name }}</a>
+    {% endfor %}
+</body>
+</html>
