@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from frontend import views
+from backend.views import add_or_update_client
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.main),
     url(r'^watch/(\d+)', views.watch),
     url(r'^api/watch/(\d+)', views.watch_json),
+    url(r'^api/client', add_or_update_client),
 ]
