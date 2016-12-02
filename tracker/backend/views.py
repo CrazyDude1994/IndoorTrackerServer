@@ -8,5 +8,5 @@ def room_list(request):
 
 
 def room(request, room_id):
-    return {"room" : Room.objects.get(id=room_id),
-            "clients" : ClientPosition.object.get(room_i)}
+    return {"room": Room.objects.get(id=room_id),
+            "clients": ClientPosition.objects.filter(room=room_id)}

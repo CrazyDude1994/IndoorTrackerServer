@@ -20,5 +20,6 @@ from frontend import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.main),
-    url(r'watch/(\d+)', views.watch),
+    url(r'^watch/(\d+)', views.watch),
+    url(r'^api/watch/(\d+)', views.watch_json),
 ]

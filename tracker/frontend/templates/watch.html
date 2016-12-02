@@ -3,12 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Watching {{ room.name }}</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.2.2/pixi.min.js"></script>
+    <script src="https://cdn.rawgit.com/konvajs/konva/1.2.2/konva.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 <body>
 Name: {{ room.name }} <br>
 Width: {{ room.width }} <br>
 Height: {{ room.height }} <br>
+<div id="container"></div>
 <script src="/static/renderer.js"></script>
+<script>
+var fun = init({{ room.width }}, {{ room.height }});
+{% for position in clients %}
+fun({{ position.x }}, {{ position.y }}, '{{ position.name }}');
+{% endfor %}
+setInterval(function() {
+    $.getJSON({
+        url: "/api/watch/{{ room.id }}"
+    }).done(function(data) {
+        for (i=0;i<data.length;i++) {
+            fun(data[i]["fields"]["x"], data[i]["fields"]["y"], data[i]["fields"]["name"]);
+        }
+    });
+}, 1000);
+</script>
 </body>
 </html>
