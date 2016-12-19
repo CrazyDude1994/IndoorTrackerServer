@@ -5,14 +5,40 @@
     <title>Watching {{ room.name }}</title>
     <script src="https://cdn.rawgit.com/konvajs/konva/1.2.2/konva.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 </head>
 <body>
-Name: {{ room.name }} <br>
-Width: {{ room.width }} <br>
-Height: {{ room.height }} <br>
-<div id="container"></div>
 <script src="/static/renderer.js"></script>
-<script>
+
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">{{ room.name }}</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                <a class="mdl-navigation__link" href="/admin/">Admin panel</a>
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Select map</span>
+        <nav class="mdl-navigation">
+            {% for room in rooms %}
+            <a href="/watch/{{ room.id }}" class="mdl-navigation__link">{{ room.name }}</a>
+            {% endfor %}
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <div id="container"></div>
+        </div>
+        <script>
 var fun = init({{ room.width }}, {{ room.height }});
 {% for position in clients %}
 fun({{ position.x }}, {{ position.y }}, '{{ position.name }}');
@@ -26,6 +52,11 @@ setInterval(function() {
         }
     });
 }, 1000);
-</script>
+
+
+
+        </script>
+    </main>
+</div>
 </body>
 </html>

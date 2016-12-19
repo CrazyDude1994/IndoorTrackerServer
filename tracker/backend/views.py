@@ -11,6 +11,7 @@ def room_list(request):
 
 def room(request, room_id):
     return {"room": Room.objects.get(id=room_id),
+            "rooms" : room_list(request),
             "clients": ClientPosition.objects.filter(room=room_id)}
 
 
